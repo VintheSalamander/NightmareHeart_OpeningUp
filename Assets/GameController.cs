@@ -31,8 +31,9 @@ public class GameController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        SpawnNewPlayer();
         current = this;
-        Invoke("WaveSpawn", 1f);
+        Invoke("WaveSpawn", 5f);
     }
 
     public void SpawnNewPlayer()

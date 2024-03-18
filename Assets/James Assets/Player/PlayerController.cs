@@ -39,6 +39,7 @@ public class PlayerController : MonoBehaviour
 
     void KeyCheck()
     {
+        
         if(Input.GetKeyUp(KeyCode.Mouse0))
         {
             attacking = true;
@@ -84,5 +85,14 @@ public class PlayerController : MonoBehaviour
         }
         float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
         playerBody.Rotate(Vector3.up * mouseX * 10);
+    }
+
+    void OnCollisionEnter(Collision other)
+    {
+        if (other.gameObject.tag == "Enemy")
+        {
+            GameController.current.SpawnNewPlayer();
+            Destroy(gameObject);
+        }
     }
 }
