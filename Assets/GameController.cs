@@ -15,7 +15,7 @@ public class GameController : MonoBehaviour
         public int ghostCurrentAmount, ghostMaxAmount, totalGhostsSpawned, ghostWaveIncrease;
 
         public int bossCurrentAmount, bossMaxAmount, totalBossSpawned, bossWaveIncrease;
-        public bool done, spawnBoss, reset;
+        public bool done, spawnBoss, reset, bossTimer;
     }
     public GameObject playerPrefab;
     public List<GameObject> allEnemies;
@@ -68,16 +68,23 @@ public class GameController : MonoBehaviour
         Invoke("WaveSpawn", 3f);
     }
 
+    void BossTimerOn()
+    {
+        waveStats.bossTimer = false;
+    }
+
     void WaveSpawn()
     {
 
         if( waveStats.totalZombiesSpawned == waveStats.zombieMaxAmount && waveStats.totalGhostsSpawned == waveStats.ghostMaxAmount)
         {
-            if(waveStats.bossCurrentAmount < waveStats.bossMaxAmount)
+            if(waveStats.totalBossSpawned < waveStats.bossMaxAmount && !waveStats.bossTimer)
             {
+                waveStats.bossTimer = true;
                 waveStats.spawnBoss = true;
+                Invoke("BossTimerOn", 5);
             }
-            else if(waveStats.bossCurrentAmount == waveStats.bossMaxAmount)
+            else if(waveStats.totalBossSpawned == waveStats.bossMaxAmount)
             {
                 waveStats.done = true;
             }
@@ -94,26 +101,43 @@ public class GameController : MonoBehaviour
             Debug.Log("test");
         }
 
-        if(waveStats.totalZombiesSpawned < waveStats.zombieMaxAmount)
+        i = UnityEngine.Random.Range(0,2);
+        if(waveStats.totalZombiesSpawned == waveStats.zombieMaxAmount)
         {
-            enemyToAdd = Instantiate(zombieAI, enemySpawn.position, quaternion.identity);
-            allEnemies.Add(enemyToAdd);
-            waveStats.totalZombiesSpawned += 1;
-            //waveStats.zombieCurrentAmount += 1;
+            i = 1;
         }
 
-        if(waveStats.totalGhostsSpawned < waveStats.ghostMaxAmount)
+        if(waveStats.totalGhostsSpawned == waveStats.ghostMaxAmount)
         {
-            enemyToAdd = Instantiate(ghostAI, enemySpawn.position, quaternion.identity);
-            allEnemies.Add(enemyToAdd);
-            waveStats.totalGhostsSpawned += 1;
-            //waveStats.ghostCurrentAmount += 1;
+            i = 0;
         }
 
+        if(i == 0)
+        {
+            if(waveStats.totalZombiesSpawned < waveStats.zombieMaxAmount)
+            {
+                enemyToAdd = Instantiate(zombieAI, enemySpawn.position, quaternion.identity);
+                allEnemies.Add(enemyToAdd);
+                waveStats.totalZombiesSpawned += 1;
+                //waveStats.zombieCurrentAmount += 1;
+            }
+        }
+        else{
+
+            if(waveStats.totalGhostsSpawned < waveStats.ghostMaxAmount)
+            {
+                enemyToAdd = Instantiate(ghostAI, enemySpawn.position, quaternion.identity);
+                allEnemies.Add(enemyToAdd);
+                waveStats.totalGhostsSpawned += 1;
+                //waveStats.ghostCurrentAmount += 1;
+            }
+        
+        }
 
         if(!waveStats.done)
         {
-            i = UnityEngine.Random.Range(1,4);
+            i = UnityEngine.Random.Range(1,6);
+            Debug.Log(i);
             Invoke("WaveSpawn", i);
 
         }

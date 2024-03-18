@@ -4272,10 +4272,13 @@ MonoBehaviour:
     totalGhostsSpawned: 0
     ghostWaveIncrease: 0
     bossCurrentAmount: 0
-    bossMaxAmount: 1
+    bossMaxAmount: 2
     totalBossSpawned: 0
-    bossWaveIncreaase: 0
+    bossWaveIncrease: 0
     done: 0
+    spawnBoss: 0
+    reset: 0
+    bossTimer: 0
   playerSpawn: {fileID: 134252062}
   enemySpawn: {fileID: 268506909}
   zombieAI: {fileID: 508694572692048951, guid: 3ae5c80bae4747248bbeefc564eb4a2c, type: 3}
