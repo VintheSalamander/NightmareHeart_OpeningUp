@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour
     private Animator anim;
     public GameObject myCam;
     public bool attacking;
+    public int mana;
     // Start is called before the first frame update
     void Start()
     {
