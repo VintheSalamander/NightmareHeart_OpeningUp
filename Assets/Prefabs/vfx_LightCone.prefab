@@ -4839,6 +4839,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1677819524169590226}
+  - component: {fileID: 1197277659954252982}
+  - component: {fileID: 6861731028617358791}
   m_Layer: 0
   m_Name: vfx_LightCone
   m_TagString: Untagged
@@ -4862,6 +4864,40 @@ Transform:
   - {fileID: 2580129269979508024}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &1197277659954252982
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1486646668130422508}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 7.604698, y: 1.7730674, z: 16.821499}
+  m_Center: {x: 0.36469555, y: 0.38653368, z: 12.323315}
+--- !u!114 &6861731028617358791
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1486646668130422508}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: edf484e8f892ce541ab3c26f59769574, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 1
 --- !u!1 &2766856131298470707
 GameObject:
   m_ObjectHideFlags: 0

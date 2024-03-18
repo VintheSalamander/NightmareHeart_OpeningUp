@@ -1953,10 +1953,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.68913597
   m_Height: 2
   m_Direction: 1
-  m_Center: {x: 0, y: 1, z: 0}
+  m_Center: {x: 0.0142267775, y: 1, z: -0.017405648}
 --- !u!114 &-7148193747786661705
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1970,6 +1970,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 20
+  maxHealth: 0
+  isPlayer: 0
 --- !u!1 &8982794318430523621
 GameObject:
   m_ObjectHideFlags: 0

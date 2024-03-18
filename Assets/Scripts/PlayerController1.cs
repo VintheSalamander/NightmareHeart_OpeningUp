@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
+using UnityEngine.UIElements;
 using UnityEngine.Video;
 
 public class PlayerController1 : MonoBehaviour
@@ -24,25 +25,32 @@ public class PlayerController1 : MonoBehaviour
     public GameObject vfxAutoAttack;
     public float delayAA;
 
-    public GameObject boxMeteorShower;
-    public GameObject boxLightCone;
-    public GameObject boxProjectile;
+    public GameObject objMeteorShower;
+    public GameObject objLightCone;
+    public GameObject objProjectile;
     
     private bool canAA;
 
     private GameObject currentSpell;
+    private Rigidbody rb;
+    private BoxCollider boxCollider;
 
     // Start is called before the first frame update
     void Start()
     {
+        boxCollider = GetComponent<BoxCollider>();
+        rb = GetComponent<Rigidbody>();
         characterController = GetComponent<CharacterController>();
+
         anim = GetComponent<Animator>();
         lastPos = playerBody.position;
+
         currentSpell = vfxAutoAttack;
         canAA = true;
-        boxMeteorShower.SetActive(false);
-        boxLightCone.SetActive(false);
-        boxProjectile.SetActive(false);
+
+        objLightCone.SetActive(false);
+        objMeteorShower.SetActive(false);
+        objProjectile.SetActive(false);
     }
 
     // Update is called once per frame
@@ -58,16 +66,6 @@ public class PlayerController1 : MonoBehaviour
 
     void KeyCheck()
     {
-        if(Input.GetKeyUp(KeyCode.Alpha1))
-        {
-            attacking = true;
-            anim.SetBool("Attack1", true);
-            DoProjectileSpell(transform.position, transform.rotation);
-            currentSpell = vfxProjectile;
-            Invoke("AutomatePlayer", 4f);
-            
-        }
-
         if(Input.GetKeyUp(KeyCode.Mouse0)){
             if(canAA){
                 DoAutoAttack(transform.position, transform.rotation);
@@ -76,9 +74,25 @@ public class PlayerController1 : MonoBehaviour
             }
         }
 
-        if(Input.GetKeyUp(KeyCode.Mouse1))
+        if(Input.GetKeyUp(KeyCode.Alpha1))
         {
             attacking = true;
+            rb.isKinematic = true;
+            boxCollider.enabled = false;
+
+            anim.SetBool("Attack1", true);
+            DoProjectileSpell(transform.position, transform.rotation);
+            currentSpell = vfxProjectile;
+            Invoke("AutomatePlayer", 4f);
+            
+        }
+
+        if(Input.GetKeyUp(KeyCode.Alpha2))
+        {
+            attacking = true;
+            rb.isKinematic = true;
+            boxCollider.enabled = false;
+
             anim.SetBool("Attack2", true);
             DoMeteorShower(transform.position, transform.rotation);
             currentSpell = vfxMeteorShower;
@@ -86,9 +100,12 @@ public class PlayerController1 : MonoBehaviour
             
         }
 
-        if(Input.GetKeyUp(KeyCode.Space))
+        if(Input.GetKeyUp(KeyCode.Alpha3))
         {
             attacking = true;
+            rb.isKinematic = true;
+            boxCollider.enabled = false;
+
             anim.SetBool("Attack3", true);
             DoLightCone(transform.position, transform. rotation);
             currentSpell = vfxLightCone;
@@ -100,6 +117,16 @@ public class PlayerController1 : MonoBehaviour
     void AutomatePlayer()
     {
         myCam.SetActive(false);
+        if(currentSpell == vfxLightCone){
+            objLightCone.SetActive(true);
+            objLightCone.GetComponent<LightConeController>().StartTurret(delayLightCone);
+        }else if(currentSpell == vfxMeteorShower){
+            objLightCone.SetActive(true);
+            objLightCone.GetComponent<MeteorController>().StartTurret(delayMeteorShower);
+        }else if(currentSpell == vfxProjectile){
+            objLightCone.SetActive(true);
+            objLightCone.GetComponent<ProjectileController>().StartTurret(delayProjectile);
+        }
         GameController1.current.SpawnNewPlayer();
     }
 
@@ -129,7 +156,6 @@ public class PlayerController1 : MonoBehaviour
 
     void DoMeteorShower(Vector3 position, Quaternion rotation){
         GameObject meteorShower = Instantiate(vfxMeteorShower, position, rotation);
-        Debug.Log("Check");
         StartCoroutine(DestroyVFX(meteorShower, delayMeteorShower));
     }
 
@@ -140,14 +166,14 @@ public class PlayerController1 : MonoBehaviour
 
     void DoProjectileSpell(Vector3 position, Quaternion rotation){
         GameObject projectile = Instantiate(vfxProjectile, position, rotation);
-        StartCoroutine(DestroyVFX(projectile, delayLightCone));
+        StartCoroutine(DestroyVFX(projectile, delayProjectile));
     }
 
-    public static IEnumerator DestroyVFX(GameObject vfx, float delay){
-        Debug.Log("Check1");
+    static IEnumerator DestroyVFX(GameObject vfx, float delay){
         yield return new WaitForSeconds(delay);
-        Debug.Log("Check2");
-        Destroy(vfx);
+        if(vfx){
+            Destroy(vfx);
+        }
     }
 
     IEnumerator EnableAutoAttack(){

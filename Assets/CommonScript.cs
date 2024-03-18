@@ -39,4 +39,12 @@ public class CommonScript : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
+    public void Damage(int damage){
+        health -= damage;
+        Debug.Log(health + " " + gameObject.name + "oo");
+        if(health < 0){
+            health = 0;
+        }
+    }
 }
