@@ -11,16 +11,17 @@ public class GameController : MonoBehaviour
     [Serializable]
     public class WaveStats
     {
-        public int zombieCurrentAmount, zombieMaxAmount, totalZombiesSpawned, waveNumber, zombieWaveIncrease;
-        public int ghostCurrentAmount, ghostMaxAmount, totalGhostsSpawned, ghostWaveIncrease;
+        public int zombieMaxAmount, totalZombiesSpawned, waveNumber, zombieWaveIncrease;
+        public int ghostMaxAmount, totalGhostsSpawned, ghostWaveIncrease;
 
-        public int bossCurrentAmount, bossMaxAmount, totalBossSpawned, bossWaveIncrease;
+        public int bossMaxAmount, totalBossSpawned, bossWaveIncrease;
         public bool done, spawnBoss, reset, bossTimer;
     }
     public GameObject playerPrefab;
     public List<GameObject> allEnemies;
     public int i;
     public WaveStats waveStats;
+    public GameObject enemyParent;
     public Transform playerSpawn;
     public Transform enemySpawn;
 
@@ -94,7 +95,7 @@ public class GameController : MonoBehaviour
         if(waveStats.spawnBoss)
         {
             waveStats.spawnBoss = false;
-            enemyToAdd = Instantiate(bossAI, enemySpawn.position, quaternion.identity);
+            enemyToAdd = Instantiate(bossAI, enemySpawn.position, quaternion.identity, enemyParent.transform);
             allEnemies.Add(enemyToAdd);
             waveStats.totalBossSpawned += 1;
            // waveStats.bossCurrentAmount += 1;
@@ -116,7 +117,7 @@ public class GameController : MonoBehaviour
         {
             if(waveStats.totalZombiesSpawned < waveStats.zombieMaxAmount)
             {
-                enemyToAdd = Instantiate(zombieAI, enemySpawn.position, quaternion.identity);
+                enemyToAdd = Instantiate(zombieAI, enemySpawn.position, quaternion.identity, enemyParent.transform);
                 allEnemies.Add(enemyToAdd);
                 waveStats.totalZombiesSpawned += 1;
                 //waveStats.zombieCurrentAmount += 1;
@@ -126,7 +127,7 @@ public class GameController : MonoBehaviour
 
             if(waveStats.totalGhostsSpawned < waveStats.ghostMaxAmount)
             {
-                enemyToAdd = Instantiate(ghostAI, enemySpawn.position, quaternion.identity);
+                enemyToAdd = Instantiate(ghostAI, enemySpawn.position, quaternion.identity, enemyParent.transform);
                 allEnemies.Add(enemyToAdd);
                 waveStats.totalGhostsSpawned += 1;
                 //waveStats.ghostCurrentAmount += 1;

@@ -18,6 +18,6 @@ public class ZombieAI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        agent.SetDestination(heart.position);
     }
 }
