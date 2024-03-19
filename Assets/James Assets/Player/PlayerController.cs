@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using Unity.Burst.Intrinsics;
 using UnityEngine;
 using UnityEngine.Video;
 
@@ -34,6 +35,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody rb;
     private BoxCollider boxCollider;
     private bool isTurret;
+    public CommonScript commonScript;
 
     public AudioSource basicAttack, enerygyBall, lightConeSound, meteors;
 
@@ -54,6 +56,7 @@ public class PlayerController : MonoBehaviour
         boxLightCone.SetActive(false);
         boxMeteorShower.SetActive(false);
         boxProjectile.SetActive(false);
+        commonScript = GetComponent<CommonScript>();
     }
 
     // Update is called once per frame
@@ -77,12 +80,13 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if(Input.GetKeyUp(KeyCode.Alpha2))
+        if(Input.GetKeyUp(KeyCode.Alpha2) && CommonScript.mana >= 6)
         {   
             isTurret = true;
             attacking = true;
             rb.isKinematic = true;
             boxCollider.enabled = false;
+            CommonScript.mana -= 6;
 
             anim.SetBool("Attack1", true);
             DoProjectileSpell(transform.position, transform.rotation);
@@ -91,12 +95,13 @@ public class PlayerController : MonoBehaviour
             
         }
 
-        if(Input.GetKeyUp(KeyCode.Alpha3))
+        if(Input.GetKeyUp(KeyCode.Alpha3) && CommonScript.mana >= 12)
         {
             isTurret = true;
             attacking = true;
             rb.isKinematic = true;
             boxCollider.enabled = false;
+            CommonScript.mana -= 12;
 
             anim.SetBool("Attack2", true);
             Vector3 spawnPosition = transform.position + transform.forward * 20f;
@@ -106,12 +111,13 @@ public class PlayerController : MonoBehaviour
             
         }
 
-        if(Input.GetKeyUp(KeyCode.Alpha1))
+        if(Input.GetKeyUp(KeyCode.Alpha1) && CommonScript.mana >= 3)
         {
             isTurret = true;
             attacking = true;
             rb.isKinematic = true;
             boxCollider.enabled = false;
+            CommonScript.mana -= 3;
 
             anim.SetBool("Attack3", true);
             DoLightCone(transform.position, transform. rotation);
