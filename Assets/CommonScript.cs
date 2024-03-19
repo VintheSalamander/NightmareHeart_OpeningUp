@@ -11,7 +11,7 @@ public class CommonScript : MonoBehaviour
     public bool isPlayer;
     public HeartSpeedArea currentArea;
 
-    [SerializeField] public static int mana = 2;
+    [SerializeField] public static int mana = 0;
     // Start is called before the first frame update
     void Start()
     {

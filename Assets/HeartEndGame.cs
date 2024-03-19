@@ -5,7 +5,7 @@ using UnityEngine;
 public class HeartEndGame : MonoBehaviour
 {
 
-    public GameObject gameController, gameLevel, enemies, newLevel, endCam, endPlayer, endNewPlayer, currentMusic;
+    public GameObject gameController, gameLevel, spellUI, enemies, newLevel, endCam, endPlayer, endNewPlayer, currentMusic;
     public AudioSource rumble, endSong;
     // Start is called before the first frame update
     void Start()
@@ -32,6 +32,7 @@ public class HeartEndGame : MonoBehaviour
     {
         rumble.Play();
         gameController.SetActive(false);
+        spellUI.SetActive(false);
         enemies.SetActive(false);
         endPlayer.SetActive(true);
         endCam.SetActive(true);
@@ -60,5 +61,6 @@ public class HeartEndGame : MonoBehaviour
     void EndSound()
     {
         rumble.Stop();
+        gameObject.GetComponent<AudioHeartController>().ChangeSpeed(0);
     }
 }
