@@ -27,6 +27,9 @@ public class ZombieAI : MonoBehaviour
     void OnDestroy()
     {
         currentDeathSound = Instantiate(deathSound, musicObject.transform);
-        Destroy(currentDeathSound, 1f);
+        if(currentDeathSound != null){
+            Destroy(currentDeathSound, 1f);
+        }
+        
     }
 }
