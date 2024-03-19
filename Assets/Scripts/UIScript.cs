@@ -23,19 +23,19 @@ public class UIScript : MonoBehaviour
     {
         int mana = CommonScript.mana;
         manaText.text = mana.ToString();
-        if(mana > 3){
+        if(mana >= 3){
             lightConeImage.color = canSpellColor;
         }else{
             lightConeImage.color = cannotSpellColor;
         }
 
-        if(mana > 6){
+        if(mana >= 6){
             projectileImage.color = canSpellColor;
         }else{
             projectileImage.color = cannotSpellColor;
         }
 
-        if(mana > 12){
+        if(mana >= 12){
             meteorShowerImage.color = canSpellColor;
         }else{
             meteorShowerImage.color = cannotSpellColor;
