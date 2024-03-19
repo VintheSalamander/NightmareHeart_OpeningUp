@@ -177,6 +177,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   agent: {fileID: 0}
   heart: {fileID: 0}
+  deathSound: {fileID: 1530324956423109953, guid: 4e610b12d6a74974ab3979a7fe24e74d,
+    type: 3}
+  currentDeathSound: {fileID: 0}
+  musicObject: {fileID: 0}
 --- !u!114 &5868856356167047084
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -35,6 +35,8 @@ public class PlayerController : MonoBehaviour
     private BoxCollider boxCollider;
     private bool isTurret;
 
+    public AudioSource basicAttack, enerygyBall, lightConeSound, meteors;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -156,21 +158,25 @@ public class PlayerController : MonoBehaviour
 
     void DoAutoAttack(Vector3 position, Quaternion rotation){
         GameObject autoAttack = Instantiate(vfxAutoAttack, position, rotation);
+        basicAttack.Play();
         StartCoroutine(DestroyVFX(autoAttack, delayAA));
     }
 
     void DoMeteorShower(Vector3 position, Quaternion rotation){
         GameObject meteorShower = Instantiate(vfxMeteorShower, position, rotation);
+        meteors.Play();
         StartCoroutine(DestroyVFX(meteorShower, delayMeteorShower));
     }
 
     void DoLightCone(Vector3 position, Quaternion rotation){
         GameObject lightCone = Instantiate(vfxLightCone, position, rotation);
+        lightConeSound.Play();
         StartCoroutine(DestroyVFX(lightCone, delayLightCone));
     }
 
     void DoProjectileSpell(Vector3 position, Quaternion rotation){
         GameObject projectile = Instantiate(vfxProjectile, position, rotation);
+        enerygyBall.Play();
         StartCoroutine(DestroyVFX(projectile, delayProjectile));
     }
 
