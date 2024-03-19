@@ -5916,6 +5916,7 @@ MonoBehaviour:
   ghostAI: {fileID: 1305197385403218114, guid: 584cfea3c14015a48890f327ca8471f7, type: 3}
   bossAI: {fileID: 8640060550744317047, guid: f736a2cdb88bb334a8fcca4f8793e126, type: 3}
   enemyToAdd: {fileID: 0}
+  currentPlayer: {fileID: 0}
 --- !u!4 &360616269
 Transform:
   m_ObjectHideFlags: 0

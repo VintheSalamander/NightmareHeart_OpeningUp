@@ -26,6 +26,7 @@ public class GameController : MonoBehaviour
     public Transform enemySpawn;
 
     public GameObject zombieAI, ghostAI, bossAI, enemyToAdd;
+    public GameObject currentPlayer;
     public static GameController current;
     //public event Action<> onSpawnNewPlayer;
     // Start is called before the first frame update
@@ -38,7 +39,7 @@ public class GameController : MonoBehaviour
 
     public void SpawnNewPlayer()
     {
-        Instantiate(playerPrefab, playerSpawn.transform.position, quaternion.identity);
+        currentPlayer = Instantiate(playerPrefab, playerSpawn.transform.position, quaternion.identity);
     }
 
     // Update is called once per frame

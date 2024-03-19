@@ -31,6 +31,7 @@ public class HeartEndGame : MonoBehaviour
     void EndGame()
     {
         rumble.Play();
+        gameController.GetComponent<GameController>().currentPlayer.SetActive(false);
         gameController.SetActive(false);
         spellUI.SetActive(false);
         enemies.SetActive(false);
