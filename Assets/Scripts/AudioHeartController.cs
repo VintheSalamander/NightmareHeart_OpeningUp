@@ -16,8 +16,10 @@ public class AudioHeartController : MonoBehaviour
     private float[] speedOptions = { 0.5f, 1.0f, 2.0f };
     private bool speedTwoActive;
     private bool speedOneActive;
+    private bool endGame;
 
     void Awake(){
+        endGame = false;
         speedTwoActive = false;
         childRenderers = GetComponentsInChildren<Renderer>();
         ChangeSpeed(0);
@@ -58,20 +60,27 @@ public class AudioHeartController : MonoBehaviour
     }
 
     public void ChangeSpeed(int speedIndex){
-        if(speedIndex == 2){
-            audioSource.pitch = speedOptions[speedIndex];
-            speedTwoActive = true;
-        }else if(speedIndex == 1 && !speedTwoActive){
-            if(!speedOneActive){
-                audioSource.pitch = speedOptions[speedIndex - 1];
-            }else{
+        if(!endGame){
+            if(speedIndex == 2){
+                audioSource.pitch = speedOptions[speedIndex];
+                speedTwoActive = true;
+            }else if(speedIndex == 1 && !speedTwoActive){
+                if(!speedOneActive){
+                    audioSource.pitch = speedOptions[speedIndex - 1];
+                }else{
+                    audioSource.pitch = speedOptions[speedIndex];
+                }
+            }else if(speedIndex == 0 && !speedTwoActive){
                 audioSource.pitch = speedOptions[speedIndex];
             }
-        }else if(speedIndex == 0 && !speedTwoActive){
-            audioSource.pitch = speedOptions[speedIndex];
+        }else{
+            audioSource.pitch = speedOptions[0];
         }
     }
 
+    public void SetEndGameTrue(){
+        endGame = true;
+    }
     public void SetSpeedTwoActive(bool set){
         speedTwoActive = set;
     }

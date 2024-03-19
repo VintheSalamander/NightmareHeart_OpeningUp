@@ -62,6 +62,8 @@ public class HeartEndGame : MonoBehaviour
     void EndSound()
     {
         rumble.Stop();
-        gameObject.GetComponent<AudioHeartController>().ChangeSpeed(0);
+        AudioHeartController heart = gameObject.GetComponent<AudioHeartController>();
+        heart.SetEndGameTrue();
+        heart.ChangeSpeed(0);
     }
 }
