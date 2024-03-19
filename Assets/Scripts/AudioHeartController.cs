@@ -9,11 +9,19 @@ public class AudioHeartController : MonoBehaviour
     public Material lightMat;
     private Renderer[] childRenderers;
     public float scaleMultiplier = 1f;
+    public GameObject enemies;
+    public bool enemiesOnOff;
+    public GameObject areaSpeedOne;
+    public GameObject areaSpeedTwo;
     private float[] speedOptions = { 0.5f, 1.0f, 2.0f };
-    private int currentSpeedIndex = 1;
+    private bool speedTwoActive;
+    private bool speedOneActive;
 
     void Awake(){
+        speedTwoActive = false;
         childRenderers = GetComponentsInChildren<Renderer>();
+        ChangeSpeed(0);
+        audioSource.volume *= 2f;
     }
 
     void Update()
@@ -30,19 +38,13 @@ public class AudioHeartController : MonoBehaviour
         transform.localScale = Vector3.one * (1 + averageVolume * scaleMultiplier);
         if(transform.localScale == Vector3.one){
             ChangeMaterial(normalMat);
+            if(enemiesOnOff){
+                enemies.SetActive(false);
+            }
         }else{
             ChangeMaterial(lightMat);
-        }
-
-        if (Input.GetKeyDown(KeyCode.Alpha1)){
-            if(currentSpeedIndex != 2){
-                currentSpeedIndex += 1;
-                ChangeSpeed(currentSpeedIndex);
-            }
-        }else if (Input.GetKeyDown(KeyCode.Alpha2)){
-            if(currentSpeedIndex != 0){
-                currentSpeedIndex -= 1;
-                ChangeSpeed(currentSpeedIndex);
+            if(enemiesOnOff){
+                enemies.SetActive(true);
             }
         }
     }
@@ -55,8 +57,26 @@ public class AudioHeartController : MonoBehaviour
         }
     }
 
-    void ChangeSpeed(int speedIndex){
-        currentSpeedIndex = speedIndex;
-        audioSource.pitch = speedOptions[speedIndex];
+    public void ChangeSpeed(int speedIndex){
+        if(speedIndex == 2){
+            audioSource.pitch = speedOptions[speedIndex];
+            speedTwoActive = true;
+        }else if(speedIndex == 1 && !speedTwoActive){
+            if(!speedOneActive){
+                audioSource.pitch = speedOptions[speedIndex - 1];
+            }else{
+                audioSource.pitch = speedOptions[speedIndex];
+            }
+        }else if(speedIndex == 0 && !speedTwoActive){
+            audioSource.pitch = speedOptions[speedIndex];
+        }
+    }
+
+    public void SetSpeedTwoActive(bool set){
+        speedTwoActive = set;
+    }
+
+    public void SetSpeedOneActive(bool set){
+        speedOneActive = set;
     }
 }
